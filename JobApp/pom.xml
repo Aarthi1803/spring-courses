@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>3.4.2</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+	<groupId>com.telusko</groupId>
+	<artifactId>JobApp</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>JobApp</name>
+	<description>Spring Boot project for JobApp </description>
+	<url/>
+	<licenses>
+		<license/>
+	</licenses>
+	<developers>
+		<developer/>
+	</developers>
+	<scm>
+		<connection/>
+		<developerConnection/>
+		<tag/>
+		<url/>
+	</scm>
+	<properties>
+		<java.version>23</java.version>
+	</properties>
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+<!-- Lombok helps you to reduce number of lines of code-->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<optional>true</optional>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		
+		<!-- By default SpringBoot does not support JSP. Thus we use tomcat-jasper converts JSP into servlet-->
+		<!--JSP files (.jsp) need to be converted into Java Servlets before execution.
+			Tomcat Jasper is the JSP Engine for Apache Tomcat.
+			It compiles JSP files into Java Servlets so that Tomcat can execute them. -->
+		<dependency>
+			<groupId>org.apache.tomcat</groupId>
+			<artifactId>tomcat-jasper</artifactId>
+			<version>10.1.34</version>
+		</dependency>
+		
+		<!--
+			JSTL (Jakarta Standard Tag Library) provides a set of useful JSP tags for common tasks like:
+			✅ Displaying dynamic content (<c:out> instead of <%= %>).
+			✅ Looping (<c:forEach> instead of Java for loop in JSP).
+			✅ Conditional Statements (<c:if> instead of Java if).
+			✅ Using variables, URL handling, and database operations easily.
+			
+			jakarta.servlet.jsp.jstl-api :
+
+    		This defines the JSTL API (what JSTL functions exist).
+    		It does not contain actual code, just interfaces that explain what JSTL should do.
+
+			org.glassfish.web:jakarta.servlet.jsp.jstl :
+
+    		This is the implementation (actual working code).
+    		Without this, JSTL functions will not work in JSP files.
+    		
+    		Think of JSTL API (jakarta.servlet.jsp.jstl-api) as a recipe book 📖.
+			Think of JSTL Implementation (org.glassfish.web:jakarta.servlet.jsp.jstl) as the chef who cooks the recipe 👨‍🍳.
+
+			Without the recipe book, the chef wouldn't know what to cook.
+			Without the chef, the recipe book is useless.
+		
+			Dependency												Purpose
+			jakarta.servlet.jsp.jstl-api					Defines JSTL tags (like <c:out>, <c:forEach>, <c:if>).
+			org.glassfish.web:jakarta.servlet.jsp.jstl		Implements JSTL (actual code to make it work in JSP).
+			
+			Why Do We Need These?
+			✔ Enables cleaner and simpler JSP code (less Java inside JSP).
+			✔ Reduces scriptlet code (<% %>), making JSP easier to read.
+			✔ Provides ready-made tags for loops, conditions, and variable handling.
+		-->
+		
+		<dependency>
+			<groupId>jakarta.servlet.jsp.jstl</groupId>
+			<artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
+			<version>3.0.1</version>		
+		</dependency>
+		
+		<dependency>
+			<groupId>org.glassfish.web</groupId>
+			<artifactId>jakarta.servlet.jsp.jstl</artifactId>
+			<version>3.0.1</version>		
+		</dependency>
+		
+		
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<annotationProcessorPaths>
+						<path>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+						</path>
+					</annotationProcessorPaths>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<excludes>
+						<exclude>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+						</exclude>
+					</excludes>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>

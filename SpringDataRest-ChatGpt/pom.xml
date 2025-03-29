@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>3.4.3</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+	<groupId>com.telusko</groupId>
+	<artifactId>SpringDataRest-ChatGpt</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>SpringDataRest-ChatGpt</name>
+	<description>SpringEcom</description>
+	<url/>
+	<licenses>
+		<license/>
+	</licenses>
+	<developers>
+		<developer/>
+	</developers>
+	<scm>
+		<connection/>
+		<developerConnection/>
+		<tag/>
+		<url/>
+	</scm>
+	<properties>
+		<java.version>23</java.version>
+	</properties>
+	<dependencies>
+	
+	    <!-- spring-boot-starter-data-jpa → Enables JPA for database interaction.-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+		
+		<!-- spring-boot-starter-data-rest → Exposes Spring Data respositories over REST via Spring Data REST. Automatically exposes repository as REST API. -->
+		<dependency>
+       	 	<groupId>org.springframework.boot</groupId>
+        	<artifactId>spring-boot-starter-data-rest</artifactId>
+    	</dependency>
+		
+		<!-- spring-boot-starter-web → Allows us to create RESTful APIs. -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+		<!-- mysql-connector-j → Enables MySQL database connection. -->
+		<dependency>
+			<groupId>com.mysql</groupId>
+			<artifactId>mysql-connector-j</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		
+		<!-- lombok → Reduces boilerplate code by auto-generating getters, setters, etc. -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<optional>true</optional>
+		</dependency>
+		
+		<!-- spring-boot-starter-test is a comprehensive testing library for Spring Boot applications. It includes JUnit, AssertJ, Mockito, and other testing tools. It simplifies writing unit tests, integration tests, and end-to-end tests. Use it to ensure your application behaves as expected and to catch bugs early in the development process. -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<annotationProcessorPaths>
+						<path>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+						</path>
+					</annotationProcessorPaths>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<excludes>
+						<exclude>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+						</exclude>
+					</excludes>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>
+
+<!-- spring-boot-starter-test dependency in Spring Boot is a comprehensive testing library that provides everything you need to write and run tests for your Spring Boot applications. It includes a variety of testing tools and frameworks, making it easier to write unit tests, integration tests, and end-to-end tests.
+ 
+ Purpose of spring-boot-starter-test:
+    Simplify Testing:
+        Provides a unified way to test Spring Boot applications by bundling essential testing libraries.
+        Reduces the need to manually include multiple dependencies for testing.
+
+    Support for Different Types of Tests:
+        Unit Tests: Test individual components (e.g., services, repositories) in isolation.
+        Integration Tests: Test the interaction between multiple components (e.g., controllers, services, databases).
+        End-to-End Tests: Test the entire application flow (e.g., HTTP requests and responses).
+
+    Provide Testing Tools:
+        Includes libraries like JUnit, AssertJ, Mockito, and Spring Test for writing and running tests.
+        Provides utilities for mocking, assertions, and test configuration.
+
+    Enable Spring Context Testing:
+        Allows you to load the Spring application context in tests, enabling dependency injection and other Spring features.
+        
+    What’s Included in spring-boot-starter-test?
+	The spring-boot-starter-test dependency includes the following libraries:
+
+    JUnit 5:
+        The default testing framework for writing and running tests in Spring Boot.
+        Supports annotations like @Test, @BeforeEach, @AfterEach, etc.
+
+    Spring Test:
+        Provides utilities for testing Spring applications, such as @SpringBootTest and @MockBean.
+
+    AssertJ:
+        A fluent assertion library for writing readable and expressive assertions.
+
+    Mockito:
+        A mocking framework for creating mock objects and stubbing behavior in tests.
+
+    JSONassert:
+        A library for asserting JSON structures in tests.
+
+    JsonPath:
+        A library for querying JSON data in tests.  
+        
+    Hamcrest:
+    	A library for writing matchers for assertions (optional, used with JUnit 4). 
+    	
+    Real-World Scenarios:
+    Unit Testing:
+        Test individual methods in a service class to ensure they behave as expected.
+
+    Integration Testing:
+        Test the interaction between multiple layers of the application (e.g., controller, service, repository).
+
+    Mocking Dependencies:
+        Use Mockito to mock external dependencies (e.g., databases, APIs) and isolate the component under test.
+
+    End-to-End Testing:
+        Use @SpringBootTest to test the entire application flow, including HTTP requests and responses.
+
+	Summary:
+    	spring-boot-starter-test is a comprehensive testing library for Spring Boot applications.
+    	It includes JUnit, AssertJ, Mockito, and other testing tools.
+    	It simplifies writing unit tests, integration tests, and end-to-end tests.
+    	Use it to ensure your application behaves as expected and to catch bugs early in the development process.
+
+        -->

@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+ 	<!--  bean definitions here -->
+  
+ 	<!--  <bean id="alien1" class="com.telusko.SpringDemo.Alien"> 	</bean> --> <!-- Default scope here is "singleton" as it creates only one object -->
+  
+ 	<!--  <bean id="alien1" class="com.telusko.SpringDemo.Alien" scope = "prototype"> 	</bean> --> <!--  scope here is "prototype" as it creates multiple objects -->
+  
+ 	<!-- <bean id="alien2" class="com.telusko.SpringDemo.Alien"> 	</bean> -->
+  
+  	<!-- <bean id="alien1" class="com.telusko.SpringDemo.Alien"> --> 	
+  
+  	<!-- <bean id="alien1" class="com.telusko.SpringDemo.Alien" autowire="byName"> -->
+  
+  	<bean id="alien1" class="com.telusko.SpringDemo.Alien" autowire="byType">
+  
+	  	<!-- <property name="age" value="21"/> --> <!-- Setter Injection -->
+	  	<!-- <property name="lap" ref="lap1"/>  --> <!-- Laptop Reference Attribute -->
+	  	
+	  	<!-- <constructor-arg value="21"/> --> <!-- Sequence of passing in parameterized constructor is important or else error occurs-->
+	  	<!-- <constructor-arg ref="lap1"/> -->
+	  	
+	  	<!-- <constructor-arg type="com.telusko.SpringDemo.Laptop" value="21"/> --> <!-- mentioning data types while passing in parameterized constructor. Sequence is not required here-->
+	  	<!-- <constructor-arg type="int" ref="lap1"/> -->
+	  	
+	  	<!-- <constructor-arg index="1" value="21"/> --> <!-- mentioning index number while passing in parameterized constructor. Sequence is not required here-->
+	  	<!-- <constructor-arg index="0" ref="lap1"/> -->
+	  	
+	  	<!-- <constructor-arg name="age" value="21"/> --> <!-- mentioning parameter names while passing in parameterized constructor. Sequence is mandatorily required here-->
+	  	<!-- <constructor-arg name="lap" ref="lap1"/> -->
+	  	
+	  	<property name="age" value="21"/> 
+	  	<!-- <property name="com" ref="lap1"/>  -->
+	  	<!-- <property name="com" ref="com"/>  -->
+	  	<!-- <property name="com" ref="com1"/> -->  <!-- Autowire works only if this property tag is not mentioned. If property tag is mentioned it overrides Autowire property -->
+	  	<!-- <property name="com" ref="com2"/> -->  <!-- Overrides primary=true and calls Desktop class -->
+	  	<!-- <property name="com" ref="com2"/> --> <!-- Alien object which is eager is depending on Desktop object which is lazy-->
+	  	<!-- Since non lazy bean(Alien) depending on lazy bean(Desktop), Desktop object gets created because Alien needs it-->
+  		<property name="com"> <!-- Inner Bean used here - Inner Bean for Alien class. Laptop can be used only by Alien and cannot be used by any other bean class as it is referenced inside Alien bean class  -->
+  			<bean id="com1" class="com.telusko.SpringDemo.Laptop" primary="true"> </bean>
+  		</property>
+  </bean>
+  
+  	<!-- <bean id="com" class="com.telusko.SpringDemo.Laptop"> 	    </bean>
+  	   	 <bean id="com1" class="com.telusko.SpringDemo.Desktop"> 	</bean> -->
+  
+  	<!-- <bean id="com1" class="com.telusko.SpringDemo.Laptop"> 	</bean>
+  	     <bean id="com" class="com.telusko.SpringDemo.Desktop"> 	</bean> -->
+  
+  	<!-- <bean id="com1" class="com.telusko.SpringDemo.Laptop"> 	</bean> --> <!-- Autowire byType that creates ambiguity problem as both Laptop and Desktop class used -->
+  	<!-- <bean id="com2" class="com.telusko.SpringDemo.Desktop"> 	</bean> --> <!-- Autowire byType that creates ambiguity problem as both Laptop and Desktop class used -->
+  
+  	<!-- <bean id="com1" class="com.telusko.SpringDemo.Laptop" primary="true"> 	</bean> --> <!-- To resolve Autowire byType that creates ambiguity problem as both Laptop and Desktop class used. we can use primary="true"-->
+  	<!-- <bean id="com2" class="com.telusko.SpringDemo.Desktop" lazy-init="true"> 	</bean> --> <!-- Desktop object will not be created by default when IOC container loads because we have set Desktop class as lazy-init=true, Desktop object will be created only when we call context.getBean() -->
+  	<!-- <bean id="com1" class="com.telusko.SpringDemo.Laptop"> 	</bean> --> <!-- After removing primary=true in tag and adding in App.java as "Computer com = context.getBean(Computer.class);" it creates ambiguity of which Computer implementation class of Desktop or Laptop to call -->
+  	<!-- <bean id="com1" class="com.telusko.SpringDemo.Laptop" primary="true"> </bean> -->
+  	<!-- <bean class="com.telusko.SpringDemo.Desktop" lazy-init="true"> 	</bean --> <!-- No bean id mentioned here because - Desktop obj = context.getBean(Desktop.class); we have mentioned only classpath and not id in context.getBean()-->
+  
+  	<!-- <bean id="lap1" class="com.telusko.SpringDemo.Laptop"> 	</bean> -->
+  	<!-- <bean id="lap2" class="com.telusko.SpringDemo.Laptop"> 	</bean> -->
+  
+  	<!-- <bean class="com.telusko.SpringDemo.Laptop">  </bean> -->  <!-- creates laptop object without using id attribute  -->
+  
+ </beans>
+  
+  <!--  Default is Singleton scope which creates object only once when ApplicationContext IOC container is executed. 
+        When context.getBean() is called every time it gives same object.
+        The moment you load the application, it'll load the  ApplicationContext IOC container and you will get the object because of Singleton scope.
+        But in Prototype scope, the object will be created only when you say context.getBean(). 
+        So every time you say context.getBean(), it'll create a new object. 
+        
+        <bean id="alien1" class="com.telusko.SpringDemo.Alien"> </bean>
+        <bean id="alien1" class="com.telusko.SpringDemo.Alien" scope="singleton"> 	</bean>
+        
+  -->
+  
+  <!--  Prototype scope will create different objects every time we call context.getBean() 
+	    But when you talk about Prototype, the object will be created only when you call context.getBean(). 
+	    So every time you call context.getBean(), it'll create a new object. 
+	    
+	    <bean id="alien1" class="com.telusko.SpringDemo.Alien" scope="prototype"> </bean>
+	    
+ -->
+  
+ <!-- 
+   	
+   	Autowiring with help of names mention in Alien.java. 
+   	We have used private Computer com in Alien.java, so autowire="byName" searches for bean tag id="com" and executes class mentioned in that bean tag.
+   	Note: autowire="byName" works only if <property name="com" ref="com1"></property> is not mentioned.
+   	
+   	If <property name="com" ref="com1"></property> is mentioned it executes Laptop class and not Desktop class because
+   	<bean id="com1" class="com.telusko.SpringDemo.Laptop"> </bean> - bean tag class Laptop which has id="com1" same as property tag ref="com1"
+   	Though <bean id="com" class="com.telusko.SpringDemo.Desktop"> </bean> id="com" is same as autowire="byName" it should execute Desktop class
+   	but it executes Laptop class because it gives preference to <property name="com" ref="com1"></property> as we are explicitly mentioning property tag
+   	
+-->
+
+   	<!-- Below property tag is called as setter injection - using setter method to assign value.
+   	For primitive datatype like age we use "value" attribute 
+   	For Laptop class reference we use "ref" called as reference attribute. ref="lap1" must have same name as below mentioned bean id="lap1" -->
+   <!-- 	<property name="age" value="21"></property>  -->
+   <!-- 	<property name="lap" ref="lap1"></property>  -->
+   	
+   	<!-- Below constructor-arg tag is called as constructor injection using type attribute. Sequence of assigning values are not needed here if datatypes are different.
+   	Here data types of int and Laptop class are not same. So no ambiguity-->
+   	<!-- <constructor-arg type="com.telusko.SpringDemo.Laptop" ref="lap1"></constructor-arg>
+   	<constructor-arg type="int" value="21"></constructor-arg> -->
+ 
+   	<!-- Below constructor-arg tag is called as constructor injection using index attribute. Sequence of assigning values are not needed here as index position 0,1,2 are used -->
+   	<!-- <constructor-arg index="1" value="2100"></constructor-arg>
+   	<constructor-arg index="2" ref="lap1"></constructor-arg>
+   	<constructor-arg index="0" value="21"></constructor-arg> --> 
+   
+   <!-- Below constructor-arg tag is called as constructor injection using name attribute. 
+   If @ConstructorProperties({"age","salary","lap"}) is not added in Alien.java we get error - Sequence of assigning values are mandatory else we get error. -->
+   <!-- <constructor-arg name="age" value="21"></constructor-arg>
+   	<constructor-arg name="salary" value="2100"></constructor-arg>
+    <constructor-arg name="lap" ref="lap1"></constructor-arg> -->
+    
+   <!-- Below constructor-arg tag is called as constructor injection using name attribute. 
+   If @ConstructorProperties({"age","salary","lap"}) is added in Alien.java - Sequence of assigning values are not mandatory  -->
+   <!--  <constructor-arg name="age" value="21"></constructor-arg>
+    <constructor-arg name="lap" ref="lap1"></constructor-arg>
+    <constructor-arg name="salary" value="2100"></constructor-arg> -->
+    
+<!-- For autowire="byType" - primary="true" is called as Primary Bean because using autowire="byType" there is ambiguity we face 
+	it gets confused which bean tag to use as both have same type Computer which is implemented by Laptop, Desktop.
+	So we are explicitly mentioning primary=true for autowire to give preference to bean tag of Laptop class - id="com1"
+	<bean id="com1" class="com.telusko.SpringDemo.Laptop" primary="true" > </bean>
+	If primary="true" is used for bean tag id="com2" of Desktop class and not Laptop class it gives preference to Desktop class 
+	<bean id="com2" class="com.telusko.SpringDemo.Desktop" primary="true"> </bean>
+	Above autowire="byType" works if <property name="com" ref="com1"></property> is not mentioned.
+	
+	<bean id="com1" class="com.telusko.SpringDemo.Laptop" > </bean> 
+	<bean id="com2" class="com.telusko.SpringDemo.Desktop" primary="true"> </bean> 
+	
+-->

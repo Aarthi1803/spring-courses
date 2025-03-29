@@ -1,0 +1,27 @@
+services:
+  app:
+    build: .
+    ports:
+      - "9090:9090"
+    networks:
+      - s-network
+
+  mysql:
+    image: mysql:latest
+    environment:
+      MYSQL_USER: aarthi
+      MYSQL_PASSWORD: 1234
+      MYSQL_DATABASE: dockerdb
+    ports:
+      - 3307:3306
+    networks:
+      - s-network
+    volumes:
+      - mysql-s-data:/var/lib/mysql  
+
+networks:
+  s-network:
+    driver: bridge
+
+volumes:
+  mysql-s-data:
